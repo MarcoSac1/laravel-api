@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("/posts", function(){
-    return "ciao";
-})->name('api.posts.index');
+Route::get("/posts", [PostController::class, "index"])->name('api.posts.index');
+Route::get("/posts/{post}", [PostController::class, "show"])->name('api.posts.show');
