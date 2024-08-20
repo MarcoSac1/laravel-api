@@ -11,7 +11,7 @@ class PostController extends Controller
     public function index(){
 
         // lazy loading di 30 post
-        $posts = Post::with("user","category")->paginate(30);
+        $posts = Post::with("category", "user")->paginate(30);
 
         return response()->json([
             'succes' => true,
@@ -20,6 +20,12 @@ class PostController extends Controller
     }
 
     public function show(Post $post){
+        // eager loading del mio singolo post via D. I.
+        $post->loadMissing("category", "user");
 
+        return response()->json([
+            'succes' => true,
+            'results' => $post
+        ]);
     }
 }
